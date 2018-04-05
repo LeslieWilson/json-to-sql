@@ -7,6 +7,8 @@ class BaseModel(Model):
     class Meta:
         database = db
 
+
+
 class Person(BaseModel):
     person_id = PrimaryKeyField()
     firstname = CharField()
@@ -20,25 +22,26 @@ class Address(BaseModel):
     street = CharField()
     city = CharField()
     zipcode = IntegerField()
-    person = ForeignKeyField(Person, to_field="person_id")
-
+    # person = ForeignKeyField(Person, to_field="person_id")
+    # commented out foreign key but necessary to associate tables
     # create a person table if it does not exist
 
 db.create_tables([Person, Address])
     # create person instances
 jsondata = json.load(open('input.json'))
 
-leslie = Person(firstname='Leslie', lastname = 'Wilson')
-julie = Person(firstname = 'Julie', lastname = 'Smith')
-
-address1 = Address(street='215', city='dummerston', zipcode=05301, person=2)
+for person in jsondata:
+    for address in person['Address']:
+        human = Person(firstname= person['firstname'], middlename = person['middlename'], lastname = person['lastname'])
+        place = Address(street= address['street'], city= address['city'], zipcode= int(address['zipcode']))
     # save them to database in one transaction
+    # What's the best way to associate an address with the foreign key of this person when saving it in the database?
 
 with db.atomic():
-    leslie.save()
-    julie.save()
-    address1.save()
-    
+    human.save()
+    place.save()
+
+
 
     # # simple SELECT example, select every fields and order by last name. if you don't specify the select columns it selects everything from that model.
     #

@@ -1,0 +1,13 @@
+[
+  {
+      "firstname": "sam",
+      "middlename": "labor dept",
+      "lastname": "wilson",
+      "Address":[
+          {
+          "street":"215",
+          "city":"new york",
+          "zipcode": "85301"
+      }]
+  }
+]
