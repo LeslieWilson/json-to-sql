@@ -11,3 +11,40 @@
       }]
   }
 ]
+
+{database_Object}
+     tcb1
+        clm1
+        clm2
+        clm3
+    tb2
+        clm1
+        clm2
+        clm3
+    tb3
+        clm1
+        clm2
+        clm3
+{Ui_Object}
+    form1: dataentry 1
+        clm1
+            text
+        clm2
+            dropdown
+                values{
+                        karthik
+                        kyle
+                        etc
+
+                }
+    {button}
+            save
+            cancel
+            edit
+            reset
+
+
+
+                1. have config file (xml, json) has database objects, and ui objects, adn control objects.
+                2. script reas json, create db/db tables, as defined in the json under db object.
+                if user enters the form, controls will have buttons, form name, button name, connected databse table.s fom 1 shoudl have these buttons, when you click this will upate table. run the scfipt ot will set uip app for you.  

@@ -8,17 +8,20 @@ from peewee import *
 import json
 
 db = SqliteDatabase('test.db')
+#this is a peewee command to make sqlite database
 
-# Basemodel that everything inherits from
+# Basemodel that everything inherits from, (i don't know what model is)
 
 class BaseModel(Model):
     class Meta:
+        #I don't know what meta is, class meta is a peewee thing
         database = db
 
-# Create the person and address models
+# Create the person and address models that hook up with the database
 
 class Person(BaseModel):
     person_id = PrimaryKeyField()
+    #here im just naming the unique id, which is automatically made when you make an entry into the database
     firstname = CharField()
     middlename = CharField(null=True)
     lastname = CharField()
@@ -30,6 +33,7 @@ class Address(BaseModel):
     city = CharField()
     zipcode = IntegerField()
     person = ForeignKeyField(Person, to_field="person_id")
+    #this connects the persno id to the address
 
 
 def main():
@@ -38,7 +42,7 @@ def main():
 
     db.create_tables([Person, Address])
 
-        # create person instances
+    
 
     jsondata = json.load(open('input.json'))
 
@@ -47,13 +51,19 @@ def main():
             human = Person(firstname= person['firstname'], middlename = person['middlename'], lastname = person['lastname'])
             place = Address(street= address['street'], city= address['city'], zipcode= int(address['zipcode']), person= 1)
         # save them to database in one transaction
+        #setting a new person and place with a new address in the database.
 
     with db.atomic():
         human.save()
         place.save()
 
+#this is a search query, t get info from the datavbase. this si an example of how to serach the database and get informnation out
+
+
+
     print()
-    print("-- get some information and display it")
+
+    print("-- now I'll get some information and display it")
 
     sam = Person.get(Person.firstname == 'sam')
     print("person: {} {}".format(sam.firstname, sam.lastname))
